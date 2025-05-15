@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+<title>L4Q</title>
+{% endblock %}
+
+{% block body %}
+<div class="primary">
+    <div class="content">
+        <form class="search_box" id="search_form">
+            <div class="search_text_area">
+                <img src="{{ url_for('static', filename='svg/search.svg') }}" title="Search" class="search_icon">
+                {% if search_addr %}
+                <input type="text" placeholder="Enter server address..." value="{{ search_addr }}" name="search" class="search_input search_input_active" id="search_input">
+                {% else %}
+                <input type="text" placeholder="Enter server address..." name="search" class="search_input" id="search_input">
+                {% endif %}
+            </div>
+            <button type="sumbit" id="search_button" class="search_button">Query</button>
+        </form>
+        <div>
+
+        </div>
+    </div>
+</div>
+<script defer src="{{ url_for('static', filename='scripts/search.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,5 @@
+Flask>=3.1.0
+setuptools>=80.4.0
+python-dotenv>=1.1.0
+python-a2s>=1.4.1
+l4d2query @ git+https://github.com/Yepoleb/l4d2query@master
