@@ -174,12 +174,3 @@ cython_debug/
 .pypirc
 
 .vscode
-
-migrations/
-
-.sass-cache/
-*.css.map
-*.sass.map
-*.scss.map
-
-*.css

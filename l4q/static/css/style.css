@@ -1,0 +1,28 @@
+@import url("search.css");
+
+:root {
+    --main-bg-color: #222222;
+    --main-text-color: #c3c3c3;
+    --main-hint-color: #858585;
+    --search-box-bg-color: #b7b7b7;
+    --search-box-hint-color: #595959;
+    --button-color: #337577;
+    --main-font-stack: "Oswald", sans-serif;
+    --main-ui-font-stack: "Open Sans", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--main-bg-color);
+    font-size: 16px;
+    font-family: sans-serif;
+    height: 100vh;
+    height: 100dvh;
+    width: 100vw;
+    width: 100dvw;
+}
