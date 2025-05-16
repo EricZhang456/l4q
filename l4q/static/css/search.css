@@ -1,57 +1,63 @@
-body .primary {
+.primary {
     width: 100%;
     height: 100%;
     display: grid;
     place-items: center;
-    .content {
+}
+
+.content {
         display: flex;
         font-family: var(--main-font-stack);
-        .search_box {
-            height: 32px;
-            display: flex;
-            gap: 10px;
-            font-family: var(--main-ui-font-stack);
-            .search_text_area {
-                display: flex;
-                align-items: center;
-                background-color: var(--search-box-bg-color);
-                width: 300px;
-                padding: 5px;
-                border-radius: 10px;
-                .search_icon {
-                    width: 13px;
-                    height: 13px;
-                    margin-inline: 10px;
-                }
-                .search_input {
-                    all: unset;
-                    font-size: 13px;
-                    width: 100%;
-                    margin-right: 5px;
-                    color: var(--search-box-hint-color);
-                    font-style: italic;
-                }
+}
+.search_box {
+    height: 32px;
+    display: flex;
+    gap: 10px;
+    font-family: var(--main-ui-font-stack);
+}
 
-            }
-            button:focus.search_button {
-                outline: revert;
-            }
-            button:disabled.search_button {
-                filter: grayscale(1);
-                opacity: 0.8;
-                cursor: not-allowed;
-            }
-            .search_button {
-                all: unset;
-                color: #fff;
-                user-select: none;
-                cursor: pointer;
-                background-color: var(--button-color);
-                padding: 5px 15px;
-                border-radius: 10px;
-            }
-        }
-    }
+.search_text_area {
+    display: flex;
+    align-items: center;
+    background-color: var(--search-box-bg-color);
+    width: 300px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.search_icon {
+    width: 13px;
+    height: 13px;
+    margin-inline: 10px;
+}
+
+.search_input {
+    all: unset;
+    font-size: 13px;
+    width: 100%;
+    margin-right: 5px;
+    color: var(--search-box-hint-color);
+    font-style: italic;
+}
+
+.search_button {
+    all: unset;
+    color: #fff;
+    user-select: none;
+    cursor: pointer;
+    background-color: var(--button-color);
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+button:focus.search_button {
+    outline: revert;
+}
+
+button:disabled.search_button {
+    filter: grayscale(1);
+    opacity: 0.8;
+    cursor: not-allowed;
 }
 
 .search_input_active {
