@@ -222,5 +222,6 @@ a:active.campaign_button {
     .server_campaign_info {
         margin-left: unset;
         align-self: center;
+        margin-bottom: 30px;
     }
 }
