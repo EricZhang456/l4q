@@ -24,6 +24,7 @@ searchForm.addEventListener("submit", event => {
     serverInfoContainer.classList.add("hide");
     serverInfoFetchHint.classList.remove("hide");
     serverInfoFetchHint.innerHTML = "Fetching server details...";
+    serverInfoContainer.innerHTML = "";
     const targetUrl = new URL(location.protocol + '//' + location.host + location.pathname);
     targetUrl.searchParams.set("search", searchInput.value);
     fetch(targetUrl.toString(), {
