@@ -92,7 +92,7 @@ def get_disp_data(server_data: dict) -> dict:
         response["mode"] = server_data.get("mode")
     else:
         if server_data.get("max_players") == 4 and not "survival" in server_data.get("mode"):
-            game_mode = f"{MODE_NAMES.get(server_data.get("mode"))} - {response.get("difficulty")}"
+            game_mode = f"{MODE_NAMES.get(server_data.get('mode'))} - {response.get('difficulty')}"
         response["mode"] = game_mode
     if server_data.get("mode") in {"scavenge", "mutation13"}:
         response["maxrounds"] = MAX_ROUNDS_NAMES.get(server_data.get("maxrounds"))
