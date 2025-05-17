@@ -193,3 +193,30 @@ a:active.campaign_button {
 .campaign_download {
     font-size: 18px;
 }
+
+/* still looks bad on mobile but you shouldn't use it on mobile anyways */
+@media screen and (max-width: 900px) {
+    .primary {
+        place-items: start;
+    }
+    .server_info {
+        height: unset;
+        width: unset;
+    }
+    .content {
+        width: 100vw;
+        width: 100dvw;
+        padding-inline: 20px;
+        padding-top: 60px;
+    }
+    .search_text_area {
+        width: 100%;
+    }
+    .server_info_container {
+        width: 100%;
+        flex-direction: column;
+    }
+    .server_info_name_players {
+        margin-bottom: 100px;
+    }
+}
