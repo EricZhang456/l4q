@@ -18,7 +18,7 @@
 {% block body %}
 <div class="primary">
     <div class="content">
-        <form class="search_box" id="search_form">
+        <form class="search_box" id="search_form" autocomplete="off">
             <div class="search_text_area">
                 <img src="{{ url_for('static', filename='svg/search.svg') }}" title="Search" class="search_icon">
                 {% if search_addr %}
