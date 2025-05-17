@@ -1,12 +1,6 @@
+{% for item in player_list %}
 <tr>
-    <th scope="row" class="server_player_list_name">John Smith</th>
-    <td class="server_player_list_time">1h 20m 23s</td>
+    <th scope="row" class="server_player_list_name">{{ item.name }}</th>
+    <td class="server_player_list_time" data-duration="{{ item.duration }}">{{ item.time }}</td>
 </tr>
-<tr>
-    <th scope="row" class="server_player_list_name">John Smith</th>
-    <td class="server_player_list_time">1h 20m 23s</td>
-</tr>
-<tr>
-    <th scope="row" class="server_player_list_name">John Smith</th>
-    <td class="server_player_list_time">1h 20m 23s</td>
-</tr>
+{% endfor %}

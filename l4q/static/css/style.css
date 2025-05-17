@@ -31,3 +31,13 @@ body {
 .hide {
     display: none !important;
 }
+
+.th-sort-asc::after {
+    content: "\25b4";
+    padding-left: 5px;
+}
+
+.th-sort-desc::after {
+    content: "\25be";
+    padding-left: 5px;
+}

@@ -3,16 +3,20 @@
 from socket import timeout, gaierror
 
 import l4d2query
+import a2s
 from flask import Blueprint, render_template, request, make_response, current_app
 
 from l4q.utils.server_data_utils import get_server_data, get_disp_data
+from l4q.utils.player_list import get_player_list
 
 bp = Blueprint("search", __name__, url_prefix="/search")
 
 @bp.route("/")
 def get_search_view():
     """Main search view."""
-    search_addr = request.args.get("search").strip()
+    search_addr = request.args.get("search")
+    if search_addr is not None:
+        search_addr = search_addr.strip()
     server_data = None
     disp_data = None
     error_text = None
@@ -46,4 +50,27 @@ def get_search_view():
                                                  disp_data=disp_data,
                                                  error_text=error_text))
     response.status = status
+    return response
+
+@bp.route("/player_list")
+def get_player_list_view():
+    """Returns a player list of the server."""
+    search_addr = request.args.get("search")
+    response = make_response()
+    response.mimetype = "text/plain"
+    if search_addr is None:
+        response.status = "400"
+        return response
+    else:
+        search_addr = search_addr.strip()
+    try:
+        player_list = get_player_list(search_addr)
+        response = make_response(render_template("player_list.html", player_list=player_list))
+        response.mimetype = "text/html"
+    except (a2s.BrokenMessageError, a2s.BufferExhaustedError, ConnectionRefusedError):
+        response.status = "502"
+    except timeout:
+        response.status = "504"
+    except (gaierror, ValueError):
+        response.status = "400"
     return response

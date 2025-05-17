@@ -4,42 +4,41 @@
     {% else %}
     <p class="server_name">{{ server_data.name }}</p>
     {% endif %}
-        <table class="server_player_list">
+        <table class="server_player_list hide">
             <thead>
                 <tr>
-                    <th scope="col">Player List - Name</th>
-                    <th scope="col">Time</th>
+                    <th scope="col" tabindex="0">Player List - Name</th>
+                    <th scope="col" tabindex="0">Time</th>
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
+</div>
+<div class="server_campaign_info">
+    <div class="campaign_img">
+        <img src="{{ url_for('static', filename=disp_data.thumbnail) }}" class="campaign_img_img">
+        <img src="{{ url_for('static', filename='images/campaignframe.png') }}" class="campaign_img_frame">
     </div>
-    <div class="server_campaign_info">
-        <div class="campaign_img">
-            <img src="{{ url_for('static', filename=disp_data.thumbnail) }}" class="campaign_img_img">
-            <img src="{{ url_for('static', filename='images/campaignframe.png') }}" class="campaign_img_frame">
-        </div>
-        <p class="campaign_title">{{ disp_data.campaign }}</p>
-        <p class="campaign_more_info">{{ disp_data.chapter }}</p>
-        <p class="campaign_more_info">by {{ server_data.campaign_author }}</p>
-        <p class="campaign_more_info">{{ disp_data.access }}</p>
-        {% if server_data.mode_addon and server_data.mode_workshop_id %}
-        <a class="campaign_more_info" href="https://steamcommunity.com/sharedfiles/filedetails/?id={{ server_data.mode_workshop_id }}" target="_blank">{{ disp_data.mode }}</a>
-        {% else %}
-        <p class="campaign_more_info">{{ disp_data.mode }}</p>
-        {% endif %}
-        {% if disp_data.maxrounds %}
-        <p class="campaign_more_info">{{ disp_data.maxrounds }}</p>
-        {% endif %}
-        <p class="campaign_more_info">{{ server_data.player_count }}/{{ server_data.max_players }} Players</p>
-        <a href="steam://connect/{{ server_data.public_adr }}" class="campaign_join campaign_button">Join Game</a>
-        {% if server_data.campaign_addon %}
-        {% if server_data.campaign_workshop_id %}
-        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id={{ server_data.campaign_workshop_id }}" class="campaign_download campaign_button">Download Add-On</a>
-        {% else %}
-        <a href="{{ server_data.campaign_website }}" target="_blank" class="campaign_download campaign_button">Download Add-On</a>
-        {% endif %}
-        {% endif %}
-    </div>
+    <p class="campaign_title">{{ disp_data.campaign }}</p>
+    <p class="campaign_more_info">{{ disp_data.chapter }}</p>
+    <p class="campaign_more_info">by {{ server_data.campaign_author }}</p>
+    <p class="campaign_more_info">{{ disp_data.access }}</p>
+    {% if server_data.mode_addon and server_data.mode_workshop_id %}
+    <a class="campaign_more_info" href="https://steamcommunity.com/sharedfiles/filedetails/?id={{ server_data.mode_workshop_id }}" target="_blank">{{ disp_data.mode }}</a>
+    {% else %}
+    <p class="campaign_more_info">{{ disp_data.mode }}</p>
+    {% endif %}
+    {% if disp_data.maxrounds %}
+    <p class="campaign_more_info">{{ disp_data.maxrounds }}</p>
+    {% endif %}
+    <p class="campaign_more_info">{{ server_data.player_count }}/{{ server_data.max_players }} Players</p>
+    <a href="steam://connect/{{ server_data.public_adr }}" class="campaign_join campaign_button">Join Game</a>
+    {% if server_data.campaign_addon %}
+    {% if server_data.campaign_workshop_id %}
+    <a href="https://steamcommunity.com/sharedfiles/filedetails/?id={{ server_data.campaign_workshop_id }}" class="campaign_download campaign_button">Download Add-On</a>
+    {% else %}
+    <a href="{{ server_data.campaign_website }}" target="_blank" class="campaign_download campaign_button">Download Add-On</a>
+    {% endif %}
+    {% endif %}
 </div>

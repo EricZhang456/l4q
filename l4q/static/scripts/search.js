@@ -1,4 +1,3 @@
-const urlParams = new URLSearchParams(window.location.search);
 const searchForm = document.getElementById("search_form");
 const searchButton = document.getElementById("search_button");
 const searchInput = document.getElementById("search_input");
@@ -53,6 +52,9 @@ searchForm.addEventListener("submit", event => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    searchInput.value = urlParams.get("search").trim();
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("search")) {
+        searchInput.value = urlParams.get("search").trim();
+    }
     searchButton.disabled = !validateHostnamePattern(searchInput.value);
 });

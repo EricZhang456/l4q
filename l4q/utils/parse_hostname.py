@@ -17,7 +17,7 @@ def parse_hostname(server_addr: str) -> tuple[str, int]:
     if parsed.hostname is None or parsed.port is None:
         raise ValueError("Invalid address")
     try:
-        socket.gethostbyaddr(parsed.hostname)
+        socket.gethostbyname(parsed.hostname)
     except socket.herror as e:
         raise ValueError("Invalid hostname") from e
     return parsed.hostname, parsed.port

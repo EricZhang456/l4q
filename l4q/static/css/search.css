@@ -108,6 +108,8 @@ button:disabled.search_button {
 .server_player_list thead tr th {
     padding-bottom: 10px;
     font-weight: 350;
+    cursor: pointer;
+    user-select: none;
 }
 
 .server_player_list tbody tr th {
