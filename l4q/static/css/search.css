@@ -6,9 +6,10 @@
 }
 
 .content {
-        display: flex;
-        font-family: var(--main-font-stack);
+    font-family: var(--main-font-stack);
+    font-weight: 400;
 }
+
 .search_box {
     height: 32px;
     display: flex;
@@ -36,6 +37,11 @@
     font-size: 13px;
     width: 100%;
     margin-right: 5px;
+    color: #000;
+    font-style: normal;
+}
+
+.search_input::placeholder {
     color: var(--search-box-hint-color);
     font-style: italic;
 }
@@ -54,13 +60,134 @@ button:focus.search_button {
     outline: revert;
 }
 
+button:active.search_button {
+    opacity: 0.8;
+}
+
 button:disabled.search_button {
     filter: grayscale(1);
     opacity: 0.8;
     cursor: not-allowed;
 }
 
-.search_input_active {
-    color: #000 !important;
-    font-style: normal !important;
+.server_info {
+    width: 800px;
+    height: 470px;
+    display: flex;
+    flex-direction: column;
+    color: var(--main-text-color);
+    margin-top: 40px;
+}
+
+.server_info_container {
+    display: flex;
+}
+
+.server_info_name_players {
+    width: 100%;
+}
+
+.server_info_hint {
+    color: var(--main-hint-color);
+    font-size: 20px;
+}
+
+.server_name {
+    font-size: 20px;
+}
+
+.server_player_list {
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+.server_player_list thead {
+    color: var(--main-hint-color);
+}
+
+.server_player_list thead tr th {
+    padding-bottom: 10px;
+    font-weight: 350;
+}
+
+.server_player_list tbody tr th {
+    padding-bottom: 5px;
+    font-weight: 500;
+}
+
+.server_player_list thead tr th:first-child {
+    text-align: left;
+    width: 250px;
+}
+
+.server_player_list_name {
+    text-align: left;
+    width: 200px;
+}
+
+.server_player_list_time {
+    text-align: center;
+    width: 100px;
+    font-weight: 400;
+}
+
+.server_campaign_info {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    margin-left: 90px;
+}
+
+.campaign_title {
+    font-weight: 550;
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.campaign_more_info {
+    margin-bottom: 2px;
+    font-size: 18px;
+}
+
+a.campaign_more_info {
+    text-decoration: none;
+}
+
+a:hover.campaign_more_info {
+    text-decoration: underline;
+    color: var(--main-text-color);
+}
+
+a:active.campaign_more_info, a:focus.campaign_more_info, a:visited.campaign_more_info {
+    color: var(--main-text-color);
+}
+
+.campaign_button {
+    color: var(--button-color);
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+a:hover.campaign_button {
+    text-shadow: rgba(255,255,255,0.9) 0px 0px 10px; 
+    color: #fff !important;
+}
+
+a:visited.campaign_button {
+    color: var(--button-color);
+}
+
+a:active.campaign_button {
+    opacity: 0.8;
+}
+
+.campaign_join {
+    margin-top: 10px;
+    margin-bottom: 3px;
+    font-size: 25px;
+}
+
+.campaign_download {
+    font-size: 18px;
 }

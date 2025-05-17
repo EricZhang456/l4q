@@ -7,7 +7,9 @@ import os
 from flask import Flask
 from dotenv import dotenv_values
 
+from .extensions import scheduler
 from .routes import index, search
+from .utils.get_l4d2_version import get_l4d2_version
 
 def create_app():
     """Creates the Flask application."""
@@ -25,5 +27,10 @@ def create_app():
 
     app.register_blueprint(index.bp)
     app.register_blueprint(search.bp)
+
+    scheduler.init_app(app)
+    scheduler.start()
+
+    get_l4d2_version(app)
 
     return app
