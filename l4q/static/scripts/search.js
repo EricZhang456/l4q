@@ -36,17 +36,18 @@ searchForm.addEventListener("submit", event => {
         if (response.ok) {
             return response.text();
         }
-        return Promise.reject(response)
+        return Promise.reject(response);
     })
     .then(response => {
         serverInfoFetchHint.classList.add("hide");
         serverInfoContainer.classList.remove("hide");
         serverInfoContainer.innerHTML = response;
+        document.title = `${document.querySelector(".server_name").innerHTML} - Info`;
         window.history.pushState({}, "", targetUrl.toString());
-        document.title = `${document.querySelector(".server_name").innerHTML} - Info`
     })
     .catch(response => {
         response.text().then(text => serverInfoFetchHint.innerHTML = text);
+        document.title = "L4Q";
         window.history.pushState({}, "", targetUrl.toString());
     });
 });
