@@ -17,9 +17,6 @@ def create_app():
 
     app.config.from_mapping(dotenv_values())
 
-    if app.config.get("ENV") not in ("dev", "prod"):
-        raise ValueError("Invalid ENV")
-
     try:
         os.makedirs(app.instance_path)
     except OSError:
