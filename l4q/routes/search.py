@@ -61,8 +61,7 @@ def get_player_list_view():
     if search_addr is None:
         response.status = "400"
         return response
-    else:
-        search_addr = search_addr.strip()
+    search_addr = search_addr.strip()
     try:
         player_list = get_player_list(search_addr)
         response = make_response(render_template("player_list.html", player_list=player_list))
