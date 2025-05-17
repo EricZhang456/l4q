@@ -172,7 +172,7 @@ a:active.campaign_more_info, a:focus.campaign_more_info, a:visited.campaign_more
 }
 
 a:hover.campaign_button {
-    text-shadow: rgba(255,255,255,0.9) 0px 0px 10px; 
+    text-shadow: rgba(255,255,255,0.9) 0px 0px 5px; 
     color: #fff !important;
 }
 
@@ -218,5 +218,9 @@ a:active.campaign_button {
     }
     .server_info_name_players {
         margin-bottom: 100px;
+    }
+    .server_campaign_info {
+        margin-left: unset;
+        align-self: center;
     }
 }
