@@ -36,7 +36,7 @@
     <a href="steam://connect/{{ server_data.public_adr }}" class="campaign_join campaign_button">Join Game</a>
     {% if server_data.campaign_addon %}
     {% if server_data.campaign_workshop_id %}
-    <a href="https://steamcommunity.com/sharedfiles/filedetails/?id={{ server_data.campaign_workshop_id }}" class="campaign_download campaign_button">Download Add-On</a>
+    <a href="https://steamcommunity.com/sharedfiles/filedetails/?id={{ server_data.campaign_workshop_id }}" class="campaign_download campaign_button" target="_blank">Download Add-On</a>
     {% else %}
     <a href="{{ server_data.campaign_website }}" target="_blank" class="campaign_download campaign_button">Download Add-On</a>
     {% endif %}
