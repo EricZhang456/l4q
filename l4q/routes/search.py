@@ -50,6 +50,7 @@ def get_search_view():
                                                  disp_data=disp_data,
                                                  error_text=error_text))
     response.headers.set("Cache-Control", "no-cache, no-store")
+    response.headers.set("Vary", "x-fetch-subview")
     response.status = status
     return response
 
