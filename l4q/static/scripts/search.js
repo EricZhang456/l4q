@@ -5,7 +5,7 @@ const searchInput = document.getElementById("search_input");
 const serverInfoFetchHint = document.querySelector(".server_info_hint");
 const serverInfoContainer = document.querySelector(".server_info_container");
 
-const validHostnamePattern = /[^\:]+:([0-9]+)$/;
+const validHostnamePattern = /[^:]+:([0-9]{1,5})$/;
 
 function validateHostnamePattern(value) {
     return Boolean(validHostnamePattern.test(value) &&
