@@ -20,12 +20,13 @@
     <div class="content">
         <form class="search_box" id="search_form" autocomplete="off">
             <div class="search_text_area">
-                <img src="{{ url_for('static', filename='svg/search.svg') }}" title="Search" class="search_icon">
+                <img src="{{ url_for('static', filename='svg/search.svg') }}" title="Search" class="search_icon" alt="Search Icon">
                 {% if search_addr %}
                 <input type="text" placeholder="Enter server address..." value="{{ search_addr }}" name="search" class="search_input" id="search_input">
                 {% else %}
                 <input type="text" placeholder="Enter server address..." name="search" class="search_input" id="search_input">
                 {% endif %}
+                <label for="search_input" class="hide">Search Box</label>
             </div>
             <button type="submit" id="search_button" class="search_button">Query</button>
         </form>

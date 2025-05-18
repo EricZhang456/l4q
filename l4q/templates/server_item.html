@@ -17,8 +17,8 @@
 </div>
 <div class="server_campaign_info">
     <div class="campaign_img">
-        <img src="{{ url_for('static', filename=disp_data.thumbnail) }}" class="campaign_img_img">
-        <img src="{{ url_for('static', filename='images/campaignframe.png') }}" class="campaign_img_frame">
+        <img src="{{ url_for('static', filename=disp_data.thumbnail) }}" class="campaign_img_img" alt="Map Thumbnail" role="presentation">
+        <img src="{{ url_for('static', filename='images/campaignframe.png') }}" class="campaign_img_frame" alt="Thumbnail Frame" aria-hidden="true">
     </div>
     <p class="campaign_title">{{ disp_data.campaign }}</p>
     <p class="campaign_more_info">{{ disp_data.chapter }}</p>
