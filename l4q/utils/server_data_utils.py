@@ -8,7 +8,8 @@ from retry import retry
 from l4q.utils.parse_hostname import parse_hostname
 from l4q.utils.map_thumbnail import get_map_thumbnail
 from l4q.utils.l4d2_names import (get_campaign_name, get_chapter_name,
-                                  ACCESS_NAMES, DIFFICULTY_NAMES, MODE_NAMES, MAX_ROUNDS_NAMES)
+                                  ACCESS_NAMES, DIFFICULTY_NAMES, MODE_NAMES, MAX_ROUNDS_NAMES,
+                                  NO_DIFFICULTY_GAME_MODES)
 
 def format_server_data(server_data: l4d2query.TokenPacket) -> dict:
     """Format the server info and put them in a dictionary.
@@ -91,7 +92,7 @@ def get_disp_data(server_data: dict) -> dict:
     if game_mode is None:
         response["mode"] = server_data.get("mode")
     else:
-        if server_data.get("max_players") == 4 and not "survival" in server_data.get("mode"):
+        if server_data.get("mode") not in NO_DIFFICULTY_GAME_MODES:
             game_mode = f"{MODE_NAMES.get(server_data.get('mode'))} - {response.get('difficulty')}"
         response["mode"] = game_mode
     if server_data.get("mode") in {"scavenge", "mutation13"}:

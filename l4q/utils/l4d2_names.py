@@ -55,6 +55,14 @@ MODE_NAMES = {
     "tankrun": "Tank Run"
 }
 
+NO_DIFFICULTY_GAME_MODES = {
+    # Co-op modes
+    "survival", "l4d1survival", "community4",
+    # VS Modes
+    "versus", "scavenge", "l4d1vs", "mutation12", "mutation15", "mutation18",
+    "community6", "mutation13", "mutation11", "community3", "mutation19"
+}
+
 CAMPAIGN_NAMES = {
     "#L4D360UI_CampaignName_Unknown": "Unknown Campaign",
     "#L4D360UI_CampaignName_C1": "Dead Center",
@@ -448,11 +456,11 @@ def get_chapter_name(chapter_disp_name: str,
             game_mode = "versus"
         else:
             game_mode = game_mode.removeprefix("l4d1")
-    # Follow the Liter mutation
-    if game_mode == "mutation13":
+    # Follow the Liter and Room For One mutation
+    if game_mode in {"mutation10", "mutation13"}:
         game_mode = "scavenge"
-    # Versus Survival mode
-    if game_mode == "mutation15":
+    # Versus Survival and Nightmare mode
+    if game_mode in {"mutation15", "community4"}:
         game_mode = "survival"
     game_mode_dict: dict = chapter_dict.get(game_mode)
     if game_mode_dict is None:
