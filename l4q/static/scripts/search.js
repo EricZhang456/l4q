@@ -72,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 window.addEventListener("popstate", () => {
-    console.log("hi");
     const currentSearchAddr = serverInfoContainer.getAttribute("data-search-addr");
     const urlParams = new URLSearchParams(window.location.search);
     if (!urlParams.has("search") || !urlParams.get("search")) {
