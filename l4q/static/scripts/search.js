@@ -18,13 +18,13 @@ searchInput.addEventListener("input", field => {
     searchButton.disabled = !validateHostnamePattern(value);
 });
 
-searchForm.addEventListener("submit", event => {
-    event.preventDefault();
+function fetchServerInfo(pushStateToHistory = true) {
     searchInput.value = searchInput.value.trim();
     serverInfoContainer.classList.add("hide");
     serverInfoFetchHint.classList.remove("hide");
     serverInfoFetchHint.innerHTML = "Fetching server details...";
     serverInfoContainer.innerHTML = "";
+    serverInfoContainer.removeAttribute("data-search-addr");
     const targetUrl = new URL(location.protocol + '//' + location.host + location.pathname);
     targetUrl.searchParams.set("search", searchInput.value);
     fetch(targetUrl.toString(), {
@@ -43,14 +43,24 @@ searchForm.addEventListener("submit", event => {
         serverInfoFetchHint.classList.add("hide");
         serverInfoContainer.classList.remove("hide");
         serverInfoContainer.innerHTML = response;
+        serverInfoContainer.setAttribute("data-search-addr", searchInput.value);
         document.title = `${document.querySelector(".server_name").innerHTML} - Info`;
-        window.history.pushState({}, "", targetUrl.toString());
+        if (pushStateToHistory) {
+            window.history.pushState({}, "", targetUrl.toString());
+        }
     })
     .catch(response => {
         response.text().then(text => serverInfoFetchHint.innerHTML = text);
         document.title = "L4Q";
-        window.history.pushState({}, "", targetUrl.toString());
+        if (pushStateToHistory) {
+            window.history.pushState({}, "", targetUrl.toString());
+        }
     });
+}
+
+searchForm.addEventListener("submit", event => {
+    event.preventDefault();
+    fetchServerInfo(true);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -59,4 +69,24 @@ document.addEventListener("DOMContentLoaded", () => {
         searchInput.value = urlParams.get("search").trim();
     }
     searchButton.disabled = !validateHostnamePattern(searchInput.value);
+});
+
+window.addEventListener("popstate", () => {
+    console.log("hi");
+    const currentSearchAddr = serverInfoContainer.getAttribute("data-search-addr");
+    const urlParams = new URLSearchParams(window.location.search);
+    if (!urlParams.has("search") || !urlParams.get("search")) {
+        serverInfoFetchHint.innerHTML = "Enter a server address and press &quot;Query&quot;."
+        serverInfoFetchHint.classList.remove("hide");
+        serverInfoContainer.classList.add("hide");
+        document.title = "L4Q";
+        return;
+    }
+    if (urlParams.get("search").trim() !== searchInput.value.trim()) {
+        searchInput.value = urlParams.get("search").trim();
+    }
+    if ((urlParams.has("search") && urlParams.get("search").trim() !== currentSearchAddr) ||
+        serverInfoContainer.classList.contains("hide")) {
+        fetchServerInfo(false);
+    }
 });

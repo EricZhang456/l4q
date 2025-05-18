@@ -39,7 +39,11 @@
             <p class="server_info_hint">Enter a server address and press &quot;Query&quot;.</p>
             {% endif %}
             {% endif %}
+            {% if search_addr %}
+            <div class="server_info_container" data-search-addr="{{ search_addr }}">
+            {% else %}
             <div class="server_info_container">
+            {% endif %}
                 {% if server_data %}
                 {% include "server_item.html" %}
                 {% endif %}
