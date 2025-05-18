@@ -49,7 +49,7 @@ def get_search_view():
                                                  server_data=server_data,
                                                  disp_data=disp_data,
                                                  error_text=error_text))
-    response.headers.set("Vary", "Accept")
+    response.headers.set("Cache-Control", "no-cache, no-store")
     response.status = status
     return response
 
@@ -58,7 +58,7 @@ def get_player_list_view():
     """Returns a player list of the server."""
     search_addr = request.args.get("search")
     response = make_response()
-    response.headers.set("Vary", "Accept")
+    response.headers.set("Cache-Control", "no-cache, no-store")
     response.mimetype = "text/plain"
     if search_addr is None:
         response.status = "400"
