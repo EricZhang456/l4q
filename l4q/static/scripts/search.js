@@ -75,7 +75,7 @@ window.addEventListener("popstate", () => {
     const currentSearchAddr = serverInfoContainer.getAttribute("data-search-addr");
     const urlParams = new URLSearchParams(window.location.search);
     if (!urlParams.has("search") || !urlParams.get("search")) {
-        serverInfoFetchHint.innerHTML = "Enter a server address and press &quot;Query&quot;."
+        serverInfoFetchHint.innerHTML = "Enter a server address and press &quot;Query&quot;.";
         serverInfoFetchHint.classList.remove("hide");
         serverInfoContainer.classList.add("hide");
         document.title = "L4Q";
