@@ -11,7 +11,7 @@ def parse_hostname(server_addr: str) -> tuple[str, int]:
     :return: A tuple of the parsed address, first item being the hostname
                 and second item being the port.
     :rtype: tuple[str, int]
-    :raised ValueError: Invalid address
+    :raises ValueError: Invalid address or hostname.
     """
     parsed = urlsplit("//" + server_addr)
     if parsed.hostname is None or parsed.port is None:
