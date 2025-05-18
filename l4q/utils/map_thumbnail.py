@@ -228,9 +228,6 @@ THUMBNAIL_NAMES = {
         "survival": {
             1: "c13m3_junkyard",
             2: "c13m4_waterworks"
-        },
-        "scavenge": {
-            1: "any"
         }
     },
     # The Last Stand
@@ -246,6 +243,29 @@ THUMBNAIL_NAMES = {
         "scavenge": {
             1: "c14m1_junkyard_scavenge",
             2: "c14m2_lighthouse_scavenge"
+        }
+    },
+    "Holdout Training": {
+        "holdout": {
+            1: "c10m3_ranchhouse",
+            2: "c10m5_houseboat"
+        }
+    },
+    "Holdout Challenge": {
+        "holdout": {
+            1: "c3m1_plankcountry",
+            2: "c4m1_milltown_a"
+        }
+    },
+    "Parish Dash": {
+        "dash": {
+            1: "c5m2_park",
+            2: "c5m3_quarter"
+        }
+    },
+    "Carnival Shoot Zones": {
+        "shootzones": {
+            1: "c2m2_fairgrounds"
         }
     }
 }
@@ -270,11 +290,11 @@ def get_map_thumbnail(chapter_disp_name: str,
             game_mode = "coop"
         else:
             game_mode = game_mode.removeprefix("l4d1")
-    # Follow the Liter mutation
-    if game_mode == "mutation13":
+    # Follow the Liter and Room For One mutation
+    if game_mode == {"mutation10", "mutation13"}:
         game_mode = "scavenge"
-    # Versus Survival mode
-    if game_mode == "mutation15":
+    # Versus Survival and Nightmare mode
+    if game_mode == {"mutation15", "community4"}:
         game_mode = "survival"
     game_mode_dict: dict = chapter_dict.get(game_mode)
     if game_mode_dict is None:

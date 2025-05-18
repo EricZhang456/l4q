@@ -396,9 +396,6 @@ CHAPTER_NAMES = {
             2: "2: South Pine Stream (VS)",
             3: "3: Memorial Bridge (VS)",
             4: "4: Cut-throat Creek (VS)"
-        },
-        "scavenge": {
-            1: "none"
         }
     },
     # The Last Stand
@@ -418,6 +415,29 @@ CHAPTER_NAMES = {
         "scavenge": {
             1: "The Village",
             2: "The Lighthouse"
+        }
+    },
+    "Holdout Training": {
+        "holdout": {
+            1: "3: The Church",
+            2: "5: Boathouse Finale"
+        }
+    },
+    "Holdout Challenge": {
+        "holdout": {
+            1: "1: Plank Country",
+            2: "1: Milltown"
+        }
+    },
+    "Parish Dash": {
+        "dash": {
+            1: "2: Park",
+            2: "4: Quarter"
+        }
+    },
+    "Carnival Shoot Zones": {
+        "shootzones": {
+            1: "2: Fairground"
         }
     }
 }
