@@ -61,7 +61,7 @@ def get_player_list_view():
     search_addr = request.args.get("search")
     response = make_response()
     response.mimetype = "text/plain"
-    if search_addr is None:
+    if not search_addr:
         response.status = "400"
         return response
     search_addr = search_addr.strip()
