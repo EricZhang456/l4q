@@ -60,7 +60,6 @@ def get_player_list_view():
     """Returns a player list of the server."""
     search_addr = request.args.get("search")
     response = make_response()
-    response.headers.set("Cache-Control", "no-cache, no-store")
     response.mimetype = "text/plain"
     if search_addr is None:
         response.status = "400"
@@ -76,4 +75,5 @@ def get_player_list_view():
         response.status = "504"
     except (gaierror, ValueError):
         response.status = "400"
+    response.headers.set("Cache-Control", "no-cache, no-store")
     return response
