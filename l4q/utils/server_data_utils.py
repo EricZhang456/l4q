@@ -2,6 +2,7 @@
 
 from socket import timeout
 
+import validators
 import l4d2query
 from retry import retry
 
@@ -10,6 +11,8 @@ from l4q.utils.map_thumbnail import get_map_thumbnail
 from l4q.utils.l4d2_names import (get_campaign_name, get_chapter_name,
                                   ACCESS_NAMES, DIFFICULTY_NAMES, MODE_NAMES, MAX_ROUNDS_NAMES,
                                   NO_DIFFICULTY_GAME_MODES)
+
+_DEFAULT_CAMPAIGN_WEBSITE = "http://store.steampowered.com"
 
 def format_server_data(server_data: l4d2query.TokenPacket) -> dict:
     """Format the server info and put them in a dictionary.
@@ -29,6 +32,11 @@ def format_server_data(server_data: l4d2query.TokenPacket) -> dict:
     server_type = server_dict.get("Server")
     if server_type is None:
         server_type = server_dict.get("server")
+    campaign_website: str | None = raw_data.get("game").get("MissionInfo").get("Website")
+    if not campaign_website.startswith(("https://", "http://")):
+        campaign_website = "https://" + campaign_website
+    if not validators.url(campaign_website) or campaign_website == _DEFAULT_CAMPAIGN_WEBSITE:
+        campaign_website = None
     response_data = {
         "access": raw_data.get("System").get("access"),
         "name": server_name,
@@ -46,7 +54,7 @@ def format_server_data(server_data: l4d2query.TokenPacket) -> dict:
         "campaign_addon": bool(raw_data.get("game").get("MissionInfo").get("addon")),
         "campaign_display_title": raw_data.get("game").get("MissionInfo").get("DisplayTitle"),
         "campaign_author": raw_data.get("game").get("MissionInfo").get("Author"),
-        "campaign_website": raw_data.get("game").get("MissionInfo").get("Website"),
+        "campaign_website": campaign_website,
         "campaign_workshop_id": raw_data.get("game").get("MissionInfo").get("workshopid"),
         "campaign_infected_only": raw_data.get("game").get("MissionInfo").get("InfectedOnly"),
         "mode_title": raw_data.get("game").get("ModeInfo").get("DisplayTitle"),

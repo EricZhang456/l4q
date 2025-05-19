@@ -38,7 +38,9 @@
     {% if server_data.campaign_workshop_id %}
     <a href="https://steamcommunity.com/sharedfiles/filedetails/?id={{ server_data.campaign_workshop_id }}" target="_blank" class="campaign_download campaign_button">Download Add-On</a>
     {% else %}
+    {% if server_data.campaign_website %}
     <a href="{{ server_data.campaign_website }}" target="_blank" class="campaign_download campaign_button">Download Add-On</a>
+    {% endif %}
     {% endif %}
     {% endif %}
 </div>
