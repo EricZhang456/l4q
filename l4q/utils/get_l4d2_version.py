@@ -11,7 +11,7 @@ from l4q.utils.parse_hostname import parse_hostname
 
 @scheduler.task("interval", id="get_l4d2_version", hours=5)
 def get_l4d2_version_task():
-    """Background task that fetches the latest L4D2 version in an interval."""
+    """Background task that fetches the latest L4D2 version at an interval."""
     get_l4d2_version(scheduler.app) # type: ignore
 
 @retry(timeout, delay=1, tries=5)
