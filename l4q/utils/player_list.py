@@ -8,10 +8,11 @@ from retry import retry
 
 from l4q.utils.parse_hostname import parse_hostname
 
+
 @retry(timeout, tries=5, delay=1)
 def get_player_list(server_addr: str) -> list[dict]:
     """Get the player list of a server with time formatted.
-    
+
     :param str server_addr: Address of the server in a host:port format.
     :return: A list of dictionary with the player name and time connected.
     :rtype: list[dict]

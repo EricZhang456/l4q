@@ -11,6 +11,7 @@ from l4q.utils.player_list import get_player_list
 
 bp = Blueprint("search", __name__, url_prefix="/search")
 
+
 @bp.route("/")
 def get_search_view():
     """Main search view."""
@@ -54,6 +55,7 @@ def get_search_view():
     response.headers.set("Vary", "x-fetch-subview")
     response.status = status
     return response
+
 
 @bp.route("/player_list")
 def get_player_list_view():

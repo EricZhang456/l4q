@@ -14,9 +14,10 @@ from l4q.utils.l4d2_names import (get_campaign_name, get_chapter_name,
 
 _DEFAULT_CAMPAIGN_WEBSITE = "http://store.steampowered.com"
 
+
 def format_server_data(server_data: l4d2query.TokenPacket) -> dict:
     """Format the server info and put them in a dictionary.
-    
+
     :param TokenPacket server_data: Data of the server from l4d2query.
     :return: A dictionary containing the sever data.
     :rtype: dict
@@ -66,10 +67,11 @@ def format_server_data(server_data: l4d2query.TokenPacket) -> dict:
     }
     return response_data
 
+
 @retry(timeout, delay=1, tries=5)
 def get_server_data(server_addr: str, version: int) -> dict:
     """Get server data formatted in a dictionary from a host:port address.
-    
+
     :param str server_addr: Server address formatted in a host:port format.
     :param int version: Engine version.
     :return: A dictionary of server info.
@@ -77,9 +79,10 @@ def get_server_data(server_addr: str, version: int) -> dict:
     """
     return format_server_data(l4d2query.query_serverdetails(parse_hostname(server_addr), version))
 
+
 def get_disp_data(server_data: dict) -> dict:
     """Get display information from game server data.
-    
+
     :param dict server_data: Server data.
     :return: A dictionary with all the display data.
     :rtype dict

@@ -53,7 +53,7 @@ THUMBNAIL_NAMES = {
         }
     },
     # Hard Rain
-    "#L4D360UI_CampaignName_C4" : {
+    "#L4D360UI_CampaignName_C4": {
         "coop": {
             1: "c4m1_milltown_a",
             2: "c4m2_sugarmill_a",
@@ -270,11 +270,12 @@ THUMBNAIL_NAMES = {
     }
 }
 
+
 def get_map_thumbnail(chapter_disp_name: str,
                       chapter: int,
                       game_mode: str) -> str:
     """Get the thumbnail of current chapter.
-    
+
     :param str chapter_disp_name: Chapter display string.
     :param int chapter: The current chapter.
     :param str game_mode: Game mode string.

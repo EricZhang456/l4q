@@ -159,7 +159,7 @@ CHAPTER_NAMES = {
         }
     },
     # Hard Rain
-    "#L4D360UI_CampaignName_C4" : {
+    "#L4D360UI_CampaignName_C4": {
         "coop": {
             1: "1: Milltown",
             2: "2: Sugar Mill",
@@ -442,9 +442,10 @@ CHAPTER_NAMES = {
     }
 }
 
+
 def get_campaign_name(campaign_display_name: str) -> str:
     """Get the name of a campaign.
-    
+
     :param str campaign_display_name: Campaign display name.
     :return: The name of the campaign.
     :rtype: str
@@ -454,12 +455,13 @@ def get_campaign_name(campaign_display_name: str) -> str:
         return campaign_name
     return campaign_display_name
 
+
 def get_chapter_name(chapter_disp_name: str,
                      chapter: int,
                      game_mode: str,
                      maxplayers: int = 4) -> str:
     """Get the name of the chapter.
-    
+
     :param str chapter_disp_name: Chapter display string.
     :param int chapter: The current chapter.
     :param str game_mode: Game mode string.
