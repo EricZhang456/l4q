@@ -10,8 +10,16 @@ function fetchPlayerList() {
         const urlParams = new URLSearchParams(window.location.search);
         const serverAddr = urlParams.get("search");
         fetch(`/search/player_list?search=${serverAddr}`)
-        .then(response => response.text())
-        .then(response => playerListTableBody.innerHTML = response);
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            }
+            return Promise.reject(response);
+        })
+        .then(response => playerListTableBody.innerHTML = response)
+        .catch(() => {
+            return;
+        });
     }
 }
 
