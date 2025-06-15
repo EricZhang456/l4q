@@ -13,10 +13,9 @@ function validateHostnamePattern(value) {
             parseInt(value.match(validHostnamePattern)[1]) > 0);
 }
 
-searchInput.addEventListener("input", field => {
-    const value = field.target.value.trim();
-    searchButton.disabled = !validateHostnamePattern(value);
-});
+searchInput.addEventListener("input", field => 
+    searchButton.disabled = !validateHostnamePattern(field.target.value.trim())
+);
 
 function fetchServerInfo(pushStateToHistory = true) {
     searchInput.value = searchInput.value.trim();

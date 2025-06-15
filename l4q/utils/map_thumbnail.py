@@ -292,10 +292,10 @@ def get_map_thumbnail(chapter_disp_name: str,
         else:
             game_mode = game_mode.removeprefix("l4d1")
     # Follow the Liter and Room For One mutation
-    if game_mode == {"mutation10", "mutation13"}:
+    if game_mode in {"mutation10", "mutation13"}:
         game_mode = "scavenge"
     # Versus Survival and Nightmare mode
-    if game_mode == {"mutation15", "community4"}:
+    if game_mode in {"mutation15", "community4"}:
         game_mode = "survival"
     game_mode_dict: dict = chapter_dict.get(game_mode)
     if game_mode_dict is None:

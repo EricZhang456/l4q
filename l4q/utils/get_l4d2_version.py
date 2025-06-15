@@ -26,5 +26,5 @@ def get_l4d2_version(app: Flask):
     address = parse_hostname(app.config["L4D2_ADDRESS"])
     server_info: a2s.SourceInfo = a2s.info(address)
     if server_info.app_id != 550 or type(server_info).__name__ == "GoldSrcInfo":
-        raise RuntimeError("L4D2_ADDRESS is not a L4D2 server.")
+        raise RuntimeError("L4D2_ADDRESS does not point a L4D2 server.")
     app.config["L4D2_VERSION"] = server_info.version.replace(".", "")
