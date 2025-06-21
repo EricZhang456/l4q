@@ -58,7 +58,7 @@ def get_search_view():
 
 
 @bp.route("/player_list")
-def get_player_list_view():
+async def get_player_list_view():
     """Returns a player list of the server."""
     search_addr = request.args.get("search")
     response = make_response()
@@ -68,12 +68,12 @@ def get_player_list_view():
         return response
     search_addr = search_addr.strip()
     try:
-        player_list = get_player_list(search_addr)
+        player_list = await get_player_list(search_addr)
         response = make_response(render_template("player_list.html", player_list=player_list))
         response.mimetype = "text/html"
     except (a2s.BrokenMessageError, a2s.BufferExhaustedError, ConnectionRefusedError):
         response.status = "502"
-    except timeout:
+    except TimeoutError:
         response.status = "504"
     except (gaierror, ValueError):
         response.status = "400"
