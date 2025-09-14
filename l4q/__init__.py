@@ -17,6 +17,12 @@ def create_app():
 
     app.config.from_mapping(dotenv_values())
 
+    if app.config.get("L4D2_ADDRESS") is None:
+        if (sys_l4d2_var := os.environ.get("L4D2_ADDRESS")) is None:
+            raise RuntimeError("L4D2_ADDRESS not specified. " \
+                "Set it as an environment varible or in .env")
+        app.config["L4D2_ADDRESS"] = sys_l4d2_var
+
     try:
         os.makedirs(app.instance_path)
     except OSError:
