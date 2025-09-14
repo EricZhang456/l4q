@@ -16,6 +16,7 @@ RUN pip install -r requirements.txt
 RUN pip install gunicorn
 
 COPY . /app
+RUN apk del git
 
 ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:8000", "l4q:create_app()"]
 CMD ["-w 4"]
