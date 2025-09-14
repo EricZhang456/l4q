@@ -12,8 +12,8 @@ apk add git
 EOF
 
 COPY ./requirements.txt /app/requirements.txt
-RUN pip install -r requirements.txt
-RUN pip install gunicorn
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir gunicorn
 
 COPY . /app
 RUN apk del git
