@@ -14,13 +14,10 @@ EOF
 COPY ./requirements.txt /app/requirements.txt
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install -r requirements.txt
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install gunicorn
 
 COPY . /app
 RUN apk del git
 
-ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:8000", "l4q:create_app()"]
-CMD ["-w 4"]
+ENTRYPOINT ["hypercorn", "-b", "0.0.0.0:8000", "l4q:create_app()"]
 
 EXPOSE 8000
