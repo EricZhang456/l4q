@@ -24,11 +24,6 @@ def create_app():
                 "Set it as an environment varible or in .env")
         app.config["L4D2_ADDRESS"] = sys_l4d2_var
 
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
-
     app.register_blueprint(index.bp)
     app.register_blueprint(search.bp)
 
