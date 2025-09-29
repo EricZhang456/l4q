@@ -1,5 +1,6 @@
 """Search view."""
 
+import asyncio
 from socket import timeout, gaierror
 
 import l4d2query
@@ -13,7 +14,7 @@ bp = Blueprint("search", __name__, url_prefix="/search")
 
 
 @bp.route("/")
-def get_search_view():
+async def get_search_view():
     """Main search view."""
     search_addr = request.args.get("search")
     if search_addr is not None:
@@ -24,7 +25,8 @@ def get_search_view():
     status = "200"
     if search_addr:
         try:
-            server_data = get_server_data(search_addr, int(current_app.config["L4D2_VERSION"]))
+            server_data = await asyncio.to_thread(get_server_data, search_addr,
+                                                  int(current_app.config["L4D2_VERSION"]))
             disp_data = get_disp_data(server_data)
         except l4d2query.BufferExhaustedError:
             error_text = "Cannot decode response from game server."

@@ -3,6 +3,7 @@
 # pylint: disable = import-outside-toplevel
 
 import os
+import asyncio
 
 from flask import Flask
 from dotenv import dotenv_values
@@ -34,6 +35,6 @@ def create_app():
     scheduler.init_app(app)
     scheduler.start()
 
-    get_l4d2_version(app)
+    asyncio.run(get_l4d2_version(app))
 
     return app
