@@ -1,5 +1,5 @@
 """Application extensions."""
 
-from flask_apscheduler import APScheduler
+from quart_tasks import QuartTasks
 
-scheduler = APScheduler()
+scheduler = QuartTasks()

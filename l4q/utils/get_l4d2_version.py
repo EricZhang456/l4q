@@ -3,24 +3,24 @@
 from socket import timeout
 
 import a2s
-from flask import Flask
+from quart import Quart
 from retry import retry
 
 from l4q.extensions import scheduler
 from l4q.utils.parse_hostname import parse_hostname
 
 
-@scheduler.task("interval", id="get_l4d2_version", hours=5)
+@scheduler.cron("0 */5 * * *")
 async def get_l4d2_version_task():
     """Background task that fetches the latest L4D2 version at an interval."""
-    await get_l4d2_version(scheduler.app)
+    await get_l4d2_version(scheduler._app) # ehh
 
 
 @retry(timeout, delay=1, tries=5)
-async def get_l4d2_version(app: Flask):
+async def get_l4d2_version(app: Quart):
     """Gets the latest L4D2 version and store it in config.
 
-    :param Flask app: A Flask application with the L4D2_ADDRESS config pointing to
+    :param Quart app: A Quart application with the L4D2_ADDRESS config pointing to
                       a valid L4D2 server.
     """
     address = parse_hostname(app.config["L4D2_ADDRESS"])

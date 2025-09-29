@@ -5,7 +5,7 @@
 import os
 import asyncio
 
-from flask import Flask
+from quart import Quart
 from dotenv import dotenv_values
 
 from .extensions import scheduler
@@ -13,8 +13,8 @@ from .routes import index, search
 from .utils.get_l4d2_version import get_l4d2_version
 
 def create_app():
-    """Creates the Flask application."""
-    app = Flask(__name__, instance_relative_config=True)
+    """Creates the Quart application."""
+    app = Quart(__name__, instance_relative_config=True)
 
     app.config.from_mapping(dotenv_values())
 
@@ -33,7 +33,6 @@ def create_app():
     app.register_blueprint(search.bp)
 
     scheduler.init_app(app)
-    scheduler.start()
 
     asyncio.run(get_l4d2_version(app))
 

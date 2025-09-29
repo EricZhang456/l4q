@@ -5,7 +5,7 @@ from socket import timeout, gaierror
 
 import l4d2query
 import a2s
-from flask import Blueprint, render_template, request, make_response, current_app
+from quart import Blueprint, render_template, request, make_response, current_app
 
 from l4q.utils.server_data_utils import get_server_data, get_disp_data
 from l4q.utils.player_list import get_player_list
@@ -40,18 +40,18 @@ async def get_search_view():
     subview_header = request.headers.get("x-fetch-subview")
     if subview_header is not None and (subview_header.isnumeric() and int(subview_header) == 1):
         if error_text:
-            response = make_response(error_text)
+            response = await make_response(error_text)
             response.mimetype = "text/plain"
         else:
-            response = make_response(render_template("server_item.html",
-                                                     server_data=server_data,
-                                                     disp_data=disp_data))
+            response = await make_response(await render_template("server_item.html",
+                                                                 server_data=server_data,
+                                                                 disp_data=disp_data))
     else:
-        response = make_response(render_template("search.html",
-                                                 search_addr=search_addr,
-                                                 server_data=server_data,
-                                                 disp_data=disp_data,
-                                                 error_text=error_text))
+        response = await make_response(await render_template("search.html",
+                                                             search_addr=search_addr,
+                                                             server_data=server_data,
+                                                             disp_data=disp_data,
+                                                             error_text=error_text))
     if search_addr:
         response.headers.set("Cache-Control", "no-cache, no-store")
     response.headers.set("Vary", "x-fetch-subview")
@@ -63,7 +63,7 @@ async def get_search_view():
 async def get_player_list_view():
     """Returns a player list of the server."""
     search_addr = request.args.get("search")
-    response = make_response()
+    response = await make_response()
     response.mimetype = "text/plain"
     if not search_addr:
         response.status = "400"
@@ -71,7 +71,7 @@ async def get_player_list_view():
     search_addr = search_addr.strip()
     try:
         player_list = await get_player_list(search_addr)
-        response = make_response(render_template("player_list.html", player_list=player_list))
+        response = await make_response(await render_template("player_list.html", player_list=player_list))
         response.mimetype = "text/html"
     except (a2s.BrokenMessageError, a2s.BufferExhaustedError, ConnectionRefusedError):
         response.status = "502"
