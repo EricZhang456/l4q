@@ -1,6 +1,6 @@
 """Hostname parsing utility."""
 
-from socket import AddressFamily # pylint stfu
+from socket import AddressFamily # pylint: disable = no-name-in-module
 from urllib.parse import urlsplit
 
 import aiodns
@@ -22,5 +22,4 @@ async def parse_hostname(server_addr: str) -> tuple[str, int]:
             host = await resolver.gethostbyname(parsed.hostname, AddressFamily.AF_INET)
     except aiodns.error.DNSError as e:
         raise ValueError("Invalid hostname") from e
-    hostname = host.name
-    return hostname, parsed.port
+    return host.name, parsed.port
