@@ -17,7 +17,7 @@ async def get_player_list(server_addr: str) -> list[dict]:
     :return: A list of dictionary with the player name and time connected.
     :rtype: list[dict]
     """
-    player_list = await a2s.aplayers(parse_hostname(server_addr))
+    player_list = await a2s.aplayers(await parse_hostname(server_addr))
     response = []
     for item in player_list:
         time_hours = int(time.strftime("%H", time.gmtime(item.duration)))

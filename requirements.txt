@@ -1,5 +1,6 @@
 Quart>=0.20.0
 quart-tasks>=0.5.0
+aiodns>=3.5.0
 setuptools>=80.4.0
 retry>=0.9.2
 validators>=0.35.0

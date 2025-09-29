@@ -9,6 +9,7 @@ from quart import Blueprint, render_template, request, make_response, current_ap
 
 from l4q.utils.server_data_utils import get_server_data, get_disp_data
 from l4q.utils.player_list import get_player_list
+from l4q.utils.parse_hostname import parse_hostname
 
 bp = Blueprint("search", __name__, url_prefix="/search")
 
@@ -24,8 +25,9 @@ async def get_search_view():
     error_text = None
     status = "200"
     if search_addr:
+        parsed_hostname = await parse_hostname(search_addr)
         try:
-            server_data = await asyncio.to_thread(get_server_data, search_addr,
+            server_data = await asyncio.to_thread(get_server_data, parsed_hostname,
                                                   int(current_app.config["L4D2_VERSION"]))
             disp_data = get_disp_data(server_data)
         except l4d2query.BufferExhaustedError:

@@ -6,7 +6,6 @@ import validators
 import l4d2query
 from retry import retry
 
-from l4q.utils.parse_hostname import parse_hostname
 from l4q.utils.map_thumbnail import get_map_thumbnail
 from l4q.utils.l4d2_names import (get_campaign_name, get_chapter_name,
                                   ACCESS_NAMES, DIFFICULTY_NAMES, MODE_NAMES, MAX_ROUNDS_NAMES,
@@ -69,15 +68,15 @@ def format_server_data(server_data: l4d2query.TokenPacket) -> dict:
 
 
 @retry(timeout, delay=1, tries=5)
-def get_server_data(server_addr: str, version: int) -> dict:
+def get_server_data(server_addr: tuple[str, int], version: int) -> dict:
     """Get server data formatted in a dictionary from a host:port address.
 
-    :param str server_addr: Server address formatted in a host:port format.
+    :param tuple[str, int] server_addr: Server address and port formatted in a tuple.
     :param int version: Engine version.
     :return: A dictionary of server info.
     :rtype: dict
     """
-    return format_server_data(l4d2query.query_serverdetails(parse_hostname(server_addr), version))
+    return format_server_data(l4d2query.query_serverdetails(server_addr, version))
 
 
 def get_disp_data(server_data: dict) -> dict:

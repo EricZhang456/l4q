@@ -1,12 +1,12 @@
 """Hostname parsing utility."""
 
-import socket
-
+from socket import AddressFamily # pylint stfu
 from urllib.parse import urlsplit
 
+import aiodns
 
-def parse_hostname(server_addr: str) -> tuple[str, int]:
-    """Parse server address and format into a tuple.
+async def parse_hostname(server_addr: str) -> tuple[str, int]:
+    """Parse server address and format into a tuple in an async manner.
 
     :param str server_addr: Server address (in host:port format).
     :return: A tuple of the parsed address, first item being the hostname
@@ -18,7 +18,9 @@ def parse_hostname(server_addr: str) -> tuple[str, int]:
     if parsed.hostname is None or parsed.port is None:
         raise ValueError("Invalid address")
     try:
-        socket.gethostbyname(parsed.hostname)
-    except socket.herror as e:
+        async with aiodns.DNSResolver() as resolver:
+            host = await resolver.gethostbyname(parsed.hostname, AddressFamily.AF_INET)
+    except aiodns.error.DNSError as e:
         raise ValueError("Invalid hostname") from e
-    return parsed.hostname, parsed.port
+    hostname = host.name
+    return hostname, parsed.port
