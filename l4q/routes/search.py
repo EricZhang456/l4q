@@ -25,8 +25,8 @@ async def get_search_view():
     error_text = None
     status = "200"
     if search_addr:
-        parsed_hostname = await parse_hostname(search_addr)
         try:
+            parsed_hostname = await parse_hostname(search_addr)
             server_data = await asyncio.to_thread(get_server_data, parsed_hostname,
                                                   int(current_app.config["L4D2_VERSION"]))
             disp_data = get_disp_data(server_data)
