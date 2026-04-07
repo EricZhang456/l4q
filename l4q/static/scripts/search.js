@@ -18,6 +18,7 @@ searchInput.addEventListener("input", field =>
 );
 
 function fetchServerInfo(pushStateToHistory = true) {
+    searchButton.disabled = true;
     searchInput.value = searchInput.value.trim();
     serverInfoContainer.classList.add("hide");
     serverInfoFetchHint.classList.remove("hide");
@@ -44,13 +45,13 @@ function fetchServerInfo(pushStateToHistory = true) {
         serverInfoContainer.innerHTML = response;
         serverInfoContainer.setAttribute("data-search-addr", searchInput.value);
         document.title = `${document.querySelector(".server_name").innerHTML} - Info`;
-        if (pushStateToHistory) {
-            window.history.pushState({}, "", targetUrl.toString());
-        }
     })
     .catch(response => {
         response.text().then(text => serverInfoFetchHint.innerHTML = text);
         document.title = "L4Q";
+    })
+    .finally(() => {
+        searchButton.disabled = false;
         if (pushStateToHistory) {
             window.history.pushState({}, "", targetUrl.toString());
         }
