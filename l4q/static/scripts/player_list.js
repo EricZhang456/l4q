@@ -8,7 +8,11 @@ function fetchPlayerList() {
         }
         const playerListTableBody = document.querySelector(".server_player_list tbody");
         const urlParams = new URLSearchParams(window.location.search);
-        const serverAddr = urlParams.get("search");
+        const serverAddr = serverInfo.getAttribute("data-search-addr");
+        if (!serverAddr) {
+            console.error("serverAddr is null or undefined.");
+            return;
+        }
         fetch(`/search/player_list?search=${serverAddr}`)
         .then(response => {
             if (response.ok) {
