@@ -1,30 +1,25 @@
 const serverInfo = document.querySelector(".server_info_container");
 
-function fetchPlayerList() {
-    if (serverInfo.innerHTML) {
-        const playerListTable = document.querySelector(".server_player_list");
-        if (playerListTable) {
-            playerListTable.classList.remove("hide");
-        }
-        const playerListTableBody = document.querySelector(".server_player_list tbody");
-        const urlParams = new URLSearchParams(window.location.search);
-        const serverAddr = serverInfo.getAttribute("data-search-addr");
-        if (!serverAddr) {
-            console.error("serverAddr is null or undefined.");
-            return;
-        }
-        fetch(`/search/player_list?search=${serverAddr}`)
-        .then(response => {
-            if (response.ok) {
-                return response.text();
-            }
-            return Promise.reject(response);
-        })
-        .then(response => playerListTableBody.innerHTML = response)
-        .catch(() => {
-            return;
-        });
+async function fetchPlayerList() {
+    if (!serverInfo.innerHTML) {
+        return;
     }
+    const playerListTable = document.querySelector(".server_player_list");
+    if (playerListTable) {
+        playerListTable.classList.remove("hide");
+    }
+    const playerListTableBody = document.querySelector(".server_player_list tbody");
+    const urlParams = new URLSearchParams(window.location.search);
+    const serverAddr = serverInfo.getAttribute("data-search-addr");
+    if (!serverAddr) {
+        console.error("serverAddr is null or undefined.");
+        return;
+    }
+    const response = await fetch(`/search/player_list?search=${serverAddr}`);
+    if (!response.ok) {
+        return;
+    }
+    playerListTableBody.innerHTML = await response.text();
 }
 
 function sortTable(table, column, asc = true) {
@@ -66,12 +61,12 @@ function attachSortTablesButtons() {
             const currentIsAscending = headerCell.classList.contains("th-sort-asc");
             sortTable(tableElement, headerIndex, !currentIsAscending);
         });
-        headerCell.addEventListener("keyup", event => {
+        headerCell.addEventListener("keyup", (event) => {
             if (event.key === "Enter" || event.key === " ") {
                 headerCell.click();
             }
         });
-        headerCell.addEventListener("keydown", event => {
+        headerCell.addEventListener("keydown", (event) => {
             if (event.key === " ") {
                 event.preventDefault();
             }
@@ -79,16 +74,16 @@ function attachSortTablesButtons() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has("search")) {
-        fetchPlayerList();
         attachSortTablesButtons();
+        await fetchPlayerList();
     }
 });
 
-const observer = new MutationObserver(() => {
-    fetchPlayerList();
+const observer = new MutationObserver(async () => {
     attachSortTablesButtons();
+    await fetchPlayerList();
 });
 observer.observe(serverInfo, { childList: true });

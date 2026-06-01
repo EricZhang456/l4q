@@ -13,11 +13,11 @@ function validateHostnamePattern(value) {
             parseInt(value.match(validHostnamePattern)[1]) > 0);
 }
 
-searchInput.addEventListener("input", field => 
+searchInput.addEventListener("input", (field) => 
     searchButton.disabled = !validateHostnamePattern(field.target.value.trim())
 );
 
-function fetchServerInfo(pushStateToHistory = true) {
+async function fetchServerInfo(pushStateToHistory = true) {
     searchButton.disabled = true;
     searchInput.value = searchInput.value.trim();
     serverInfoContainer.classList.add("hide");
@@ -27,40 +27,38 @@ function fetchServerInfo(pushStateToHistory = true) {
     serverInfoContainer.removeAttribute("data-search-addr");
     const targetUrl = new URL(location.protocol + '//' + location.host + location.pathname);
     targetUrl.searchParams.set("search", searchInput.value);
-    fetch(targetUrl.toString(), {
+    const response = await fetch(targetUrl.toString(), {
         method: "GET",
         headers: {
             "x-fetch-subview": "1"
         }
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.text();
-        }
-        return Promise.reject(response);
-    })
-    .then(response => {
-        serverInfoFetchHint.classList.add("hide");
-        serverInfoContainer.classList.remove("hide");
-        serverInfoContainer.innerHTML = response;
-        serverInfoContainer.setAttribute("data-search-addr", searchInput.value);
-        document.title = `${document.querySelector(".server_name").innerHTML} - Info`;
-    })
-    .catch(response => {
-        response.text().then(text => serverInfoFetchHint.innerHTML = text);
-        document.title = "L4Q";
-    })
-    .finally(() => {
+    });
+
+    function finalize() {
         searchButton.disabled = false;
         if (pushStateToHistory) {
             window.history.pushState({}, "", targetUrl.toString());
         }
-    });
+    }
+
+    if (!response.ok) {
+        serverInfoFetchHint.innerHTML = await response.text();
+        finalize();
+        return;
+    }
+
+    const responseBody = await response.text();
+    serverInfoFetchHint.classList.add("hide");
+    serverInfoContainer.classList.remove("hide");
+    serverInfoContainer.innerHTML = responseBody;
+    serverInfoContainer.setAttribute("data-search-addr", searchInput.value);
+    document.title = `${document.querySelector(".server_name").innerHTML} - Info`;
+    finalize();
 }
 
-searchForm.addEventListener("submit", event => {
+searchForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    fetchServerInfo(true);
+    await fetchServerInfo(true);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -71,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     searchButton.disabled = !validateHostnamePattern(searchInput.value);
 });
 
-window.addEventListener("popstate", () => {
+window.addEventListener("popstate", async () => {
     const currentSearchAddr = serverInfoContainer.getAttribute("data-search-addr");
     const urlParams = new URLSearchParams(window.location.search);
     if (!urlParams.has("search") || !urlParams.get("search")) {
@@ -86,6 +84,6 @@ window.addEventListener("popstate", () => {
     }
     if ((urlParams.has("search") && urlParams.get("search").trim() !== currentSearchAddr) ||
         serverInfoContainer.classList.contains("hide")) {
-        fetchServerInfo(false);
+        await fetchServerInfo(false);
     }
 });
