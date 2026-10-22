@@ -9,7 +9,6 @@ async function fetchPlayerList() {
         playerListTable.classList.remove("hide");
     }
     const playerListTableBody = document.querySelector(".server_player_list tbody");
-    const urlParams = new URLSearchParams(window.location.search);
     const serverAddr = serverInfo.getAttribute("data-search-addr");
     if (!serverAddr) {
         console.error("serverAddr is null or undefined.");
